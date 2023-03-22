@@ -61,6 +61,19 @@ function showDept() {
     td.append(tools.formatDate(dept.lastupdate));
     tr.append(td);
 
+    // 操作按钮
+    // 修改按钮
+    td = document.createElement('td');
+    let btn01 = document.createElement('button');
+    btn01.append('修改');
+    btn01.addEventListener('click', () => {
+      showModify(dept);
+    });
+
+    td.append(btn01);
+
+    tr.append(td);
+
     tbDept.append(tr);
   }
 }
@@ -79,8 +92,91 @@ btnReset.addEventListener('click', () => {
   btnQuery.click();
 });
 
+// 分页的部分 ====================================
+let spans = document.querySelectorAll('#divPage > span');
+console.log('通过css选择器获取页面一组元素', spans);
+
 function showPage() {
   console.log('分页信息：', page);
+  // `模板字符串，可以通过${变量表达式注入变量值}`
+  spans[1].innerHTML = `
+  记录总数/当前页/总页数:
+  ${page.total}/${page.pageNumber}/${page.pageCount}
+  `;
 }
+
+// document.querySelector('#divPage > span:nth-of-type(3)')
+// 下一页
+spans[2].addEventListener('click', () => {
+  page.pageNumber++;
+  if (page.pageNumber > page.pageCount) {
+    page.pageNumber = page.pageCount;
+    return;
+  }
+  queryDept();
+});
+
+// 上一页
+spans[0].addEventListener('click', () => {
+  page.pageNumber--;
+  if (page.pageNumber < 1) {
+    page.pageNumber = 1;
+    return;
+  }
+  queryDept();
+});
+
+// 添加的部分 =================================================
+let btnShowAdd = document.getElementById('btnShowAdd');
+let dialogAdd = document.getElementById('dialogAdd');
+let txtAName = document.getElementById('txtAName');
+let txtAInfo = document.getElementById('txtAInfo');
+let btnAdd = document.getElementById('btnAdd');
+
+btnShowAdd.addEventListener('click', () => {
+  dialogAdd.showModal();
+});
+
+btnAdd.addEventListener('click', () => {
+  let info = {
+    deptInfo: txtAInfo.value,
+    deptName: txtAName.value,
+  };
+
+  ajax.send('/manage/dept/add', info, (data) => {
+    alert(data.message);
+    if (data.success) {
+      txtAInfo.value = '';
+      txtAName.value = '';
+    }
+  });
+});
+
+// 修改的部分
+let dialogModify = document.getElementById('dialogModify');
+let txtMName = document.getElementById('txtMName');
+let txtMInfo = document.getElementById('txtMInfo');
+let btnModify = document.getElementById('btnModify');
+// 记住要修改的id
+let deptId;
+
+function showModify(info) {
+  console.log('要修改的信息：', info);
+  txtMName.value = info.deptName;
+  txtMInfo.value = info.deptInfo;
+  deptId = info.deptId;
+  dialogModify.showModal();
+}
+
+btnModify.addEventListener('click', () => {
+  let info = {
+    deptId: deptId,
+    deptInfo: txtMInfo.value,
+    deptName: txtMName.value,
+  };
+  ajax.send('/manage/dept/update', info, (data) => {
+    alert(data.message);
+  });
+});
 
 queryDept();

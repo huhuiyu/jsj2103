@@ -15,6 +15,7 @@
     <input type="text" id="txtDeptName" placeholder="部门名称模糊查询">
     <button id="btnQuery">查询</button>
     <button id="btnReset">重置</button>
+    <button id="btnShowAdd">添加</button>
   </div>
 
   <!-- 数据呈现部分 -->
@@ -26,6 +27,7 @@
         <th>部门名称</th>
         <th>部门信息</th>
         <th>信息最后修改时间</th>
+        <th>操作</th>
       </tr>
     </thead>
 
@@ -48,6 +50,37 @@
     <span></span>
     <span>下一页</span>
   </div>
+
+  <!-- 添加的对话框 -->
+  <dialog id="dialogAdd">
+    <h2>添加信息</h2>
+    <input type="text" id="txtAName" placeholder="部门名称">
+    <hr>
+    <input type="text" id="txtAInfo" placeholder="部门信息">
+    <hr>
+    <button id="btnAdd">添加</button>
+
+    <form method="dialog">
+      <button>关闭</button>
+    </form>
+
+  </dialog>
+
+  <!-- 修改的对话框 -->
+  <dialog id="dialogModify">
+    <h2>修改信息</h2>
+    <input type="text" id="txtMName" placeholder="部门名称">
+    <hr>
+    <input type="text" id="txtMInfo" placeholder="部门信息">
+    <hr>
+    <button id="btnModify">修改</button>
+
+    <form method="dialog">
+      <button>关闭</button>
+    </form>
+
+  </dialog>
+
 
   <script src="./js/dept.js" type="module"></script>
 </body>
