@@ -69,8 +69,15 @@ function showDept() {
     btn01.addEventListener('click', () => {
       showModify(dept);
     });
-
     td.append(btn01);
+    // 删除按钮
+    let btn02 = document.createElement('button');
+    btn02.append('删除');
+    btn02.addEventListener('click', () => {
+      del(dept);
+    });
+
+    td.append(btn02);
 
     tr.append(td);
 
@@ -179,4 +186,34 @@ btnModify.addEventListener('click', () => {
   });
 });
 
+// 删除的部分
+function del(info) {
+  if (confirm(`是否删除：${info.deptName}?`)) {
+    ajax.send(
+      '/manage/dept/delete',
+      {
+        deptId: info.deptId,
+      },
+      (data) => {
+        alert(data.message);
+        page.pageNumber = 1;
+        queryDept();
+      }
+    );
+  }
+}
+
+dialogAdd.addEventListener('close', () => {
+  page.pageNumber = 1;
+  queryDept();
+});
+
+dialogModify.addEventListener('close', () => {
+  page.pageNumber = 1;
+  queryDept();
+});
+
 queryDept();
+
+// 和上课的进度同步完成班级和学生管理功能
+// 作业延迟一周
