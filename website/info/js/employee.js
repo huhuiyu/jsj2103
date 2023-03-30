@@ -72,6 +72,23 @@ function showEmp() {
     td.append(tools.formatDate(emp.lastupdate));
     tr.append(td);
 
+    // 操作按钮部分
+    td = document.createElement('td');
+    let mbtn = document.createElement('button');
+    mbtn.append('修改');
+    td.append(mbtn);
+
+    let dbtn = document.createElement('button');
+    dbtn.append('删除');
+    td.append(dbtn);
+
+    // 修改功能
+    mbtn.addEventListener('click', () => {
+      showModify(emp);
+    });
+
+    tr.append(td);
+
     tbData.append(tr);
   }
 }
@@ -130,6 +147,9 @@ links[3].addEventListener('click', () => {
 //#endregion
 
 //#region 部门选择的部分
+// 部门选择对话框的选择模式，1：查询，2：添加，3：修改
+let mode = 1;
+
 let dlist = [];
 let dpage = {
   pageNumber: 1,
@@ -148,6 +168,8 @@ let btnQueryDept = document.getElementById('btnQueryDept');
 let btnCloseDept = document.getElementById('btnCloseDept');
 
 btnDept.addEventListener('click', () => {
+  // 切换mode到查询
+  mode = 1;
   queryDept();
   deptDialog.showModal();
 });
@@ -187,10 +209,22 @@ function showDept() {
     let button = document.createElement('button');
     button.append('选择此部门');
     button.addEventListener('click', () => {
-      // 修改查询条件
-      queryInfo.deptId = dept.deptId;
-      // 显示选中的部门
-      btnDept.innerHTML = `选中的部门：${dept.deptName}`;
+      // 查询模式
+      if (mode == 1) {
+        // 修改查询条件
+        queryInfo.deptId = dept.deptId;
+        // 显示选中的部门
+        btnDept.innerHTML = `选中的部门：${dept.deptName}`;
+      } else if (mode == 2) {
+        // 添加模式
+        addInfo.deptId = dept.deptId;
+        btnADept.innerHTML = `选中的部门：${dept.deptName}`;
+      } else if (mode == 3) {
+        // 修改模式
+        modifyInfo.deptId = dept.deptId;
+        btnMDept.innerHTML = `所属部门：${dept.deptName}`;
+      }
+
       // 关闭对话框
       btnCloseDept.click();
     });
@@ -204,4 +238,88 @@ function showDept() {
 
 //#endregion
 
+//#region 添加的部分
+let addDialog = document.getElementById('addDialog');
+let btnADept = document.getElementById('btnADept');
+let txtAName = document.getElementById('txtAName');
+let txtAPhone = document.getElementById('txtAPhone');
+let btnAdd = document.getElementById('btnAdd');
+let btnAClose = document.getElementById('btnAClose');
+let btnShowAdd = document.getElementById('btnShowAdd');
+
+let addInfo = {};
+
+btnShowAdd.addEventListener('click', () => {
+  addDialog.showModal();
+});
+
+btnAClose.addEventListener('click', () => {
+  document.querySelector('#addDialog form').submit();
+});
+
+btnADept.addEventListener('click', () => {
+  // 切换到添加mode
+  mode = 2;
+  queryDept();
+  deptDialog.showModal();
+});
+
+btnAdd.addEventListener('click', () => {
+  addInfo.employeeName = txtAName.value;
+  addInfo.phone = txtAPhone.value;
+  ajax.send('/manage/employee/add', addInfo, (data) => {
+    alert(data.message);
+  });
+});
+
+addDialog.addEventListener('close', () => {
+  page.pageNumber = 1;
+  queryEmp();
+});
+
+//#endregion
+
+//#region  修改的部分
+let modifyDialog = document.getElementById('modifyDialog');
+let btnMDept = document.getElementById('btnMDept');
+let txtMName = document.getElementById('txtMName');
+let txtMPhone = document.getElementById('txtMPhone');
+let btnModify = document.getElementById('btnModify');
+let btnMClose = document.getElementById('btnMClose');
+
+let modifyInfo = {};
+
+function showModify(info) {
+  modifyInfo = info;
+  btnMDept.innerHTML = `所属部门:${modifyInfo.dept.deptName}`;
+  txtMName.value = modifyInfo.employeeName;
+  txtMPhone.value = modifyInfo.phone;
+  modifyDialog.showModal();
+}
+
+btnMClose.addEventListener('click', () => {
+  document.querySelector('#modifyDialog form').submit();
+});
+
+btnMDept.addEventListener('click', () => {
+  mode = 3;
+  queryDept();
+  deptDialog.showModal();
+});
+
+btnModify.addEventListener('click', () => {
+  modifyInfo.employeeName = txtMName.value;
+  modifyInfo.phone = txtMPhone.value;
+
+  ajax.send('/manage/employee/update', modifyInfo, (data) => {
+    alert(data.message);
+  });
+});
+
+modifyDialog.addEventListener('close', () => {
+  page.pageNumber = 1;
+  queryEmp();
+});
+
+//#endregion
 queryEmp();

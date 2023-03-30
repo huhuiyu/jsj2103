@@ -23,6 +23,7 @@
     </select>
     <button id="btnQuery">查询</button>
     <button id="btnReset">重置</button>
+    <button id="btnShowAdd">添加</button>
   </div>
 
   <!-- 数据呈现的部分 -->
@@ -74,6 +75,38 @@
     </div>
 
   </dialog>
+
+  <!-- 添加的对话框 -->
+  <dialog id="addDialog">
+    <form method="dialog"></form>
+    <div>
+      <button id="btnADept">选择部门</button>
+      <br>
+      <input type="text" id="txtAName" placeholder="姓名">
+      <br>
+      <input type="text" id="txtAPhone" placeholder="电话">
+      <br>
+      <button id="btnAdd">添加</button>
+      <button id="btnAClose">关闭</button>
+    </div>
+  </dialog>
+
+
+  <!-- 修改的对话框 -->
+  <dialog id="modifyDialog">
+    <form method="dialog"></form>
+    <div>
+      <button id="btnMDept">选择部门</button>
+      <br>
+      <input type="text" id="txtMName" placeholder="姓名">
+      <br>
+      <input type="text" id="txtMPhone" placeholder="电话">
+      <br>
+      <button id="btnModify">保存</button>
+      <button id="btnMClose">关闭</button>
+    </div>
+  </dialog>
+  <!-- 熵增定律 -->
 
   <script src="js/employee.js" type="module"></script>
 
