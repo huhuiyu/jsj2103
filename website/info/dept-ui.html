@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>带ui的部门管理</title>
+  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <!-- 查询条件部分 -->
+    <div class="m-1" style="display: flex;justify-content: flex-end;">
+      <div class="m-1">
+        <input class="form-control" type="text" id="txtDeptName" placeholder="部门名称模糊查询">
+      </div>
+      <div class="m-1">
+        <button id="btnQuery" class="btn btn-primary">查询</button>
+        <button id="btnReset" class="btn btn-danger">重置</button>
+        <button id="btnShowAdd" data-bs-toggle="modal" data-bs-target="#dialogAdd" class="btn btn-info">添加</button>
+      </div>
+
+    </div>
+
+    <!-- 数据呈现部分 -->
+    <table class="table table-bordered table-hover table-striped">
+
+      <thead>
+        <tr>
+          <th>部门编号</th>
+          <th>部门名称</th>
+          <th>部门信息</th>
+          <th>信息最后修改时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbDept"></tbody>
+
+    </table>
+
+    <!-- 分页的部分 -->
+    <div id="divPage" class="pagination">
+      <span class="page-link">&lt;</span>
+      <span class="page-link"></span>
+      <span class="page-link">&gt;</span>
+    </div>
+
+  </div>
+
+  <!-- 添加的对话框 -->
+  <div id="dialogAdd" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">添加部门</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="m-3">
+            <input class="form-control" type="text" id="txtAName" placeholder="部门名称">
+          </div>
+
+          <div class="m-3">
+            <input class="form-control" type="text" id="txtAInfo" placeholder="部门信息">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            关闭
+          </button>
+          <button id="btnAdd" type="button" class="btn btn-primary">
+            添加
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 公用消息轻提示 -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">服务器消息</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="../bootstrap/popper.min.js"></script>
+  <script src="../bootstrap/bootstrap.min.js"></script>
+
+  <script src="./js/dept-ui.js" type="module"></script>
+</body>
+
+</html>
