@@ -1,12 +1,13 @@
 import ajax from '../../js/ajax.js';
-// null , 404 , undefined
-let spName = document.getElementById('spName');
-let spNick = document.getElementById('spNick');
-let divInfo = document.getElementById('divInfo');
+
+//#region 登录用户信息查询
 
 let tbUser = {};
 let tbUserInfo = {};
 let userOtherInfo = {};
+
+let spUserName = document.getElementById('spUserName');
+let spUser = document.getElementById('spUser');
 
 function queryUserInfo() {
   ajax.send('/user/auth/getUserInfo', {}, (data) => {
@@ -16,28 +17,70 @@ function queryUserInfo() {
       userOtherInfo = data.userOtherInfo;
       showUser();
     } else {
-      alert('用户未登录');
+      showToast('用户未登录');
     }
   });
 }
 
 function showUser() {
-  spName.innerHTML = tbUser.nickname;
-  spNick.innerHTML = tbUser.username;
+  spUserName.innerHTML = tbUser.username;
+  spUser.innerHTML = `${tbUser.nickname}(${tbUser.role})`;
 
-  divInfo.append(JSON.stringify(tbUser));
-  divInfo.append(document.createElement('hr'));
-  divInfo.append(JSON.stringify(tbUserInfo));
-  divInfo.append(document.createElement('hr'));
-  divInfo.append(JSON.stringify(userOtherInfo));
+  txtNickname.value = tbUser.nickname;
+
+  txtImg.value = tbUserInfo.img;
+  txtInfo.value = tbUserInfo.info;
+  txtQq.value = tbUserInfo.qq;
+  txtWechat.value = tbUserInfo.wechat;
+  // 性别显示
+  if ('m' == tbUserInfo.sex) {
+    sexm.checked = true;
+  } else if ('f' == tbUserInfo.sex) {
+    sexf.checked = true;
+  } else if ('n' == tbUserInfo.sex) {
+    sexn.checked = true;
+  }
 }
 
-let alogout = document.getElementById('alogout');
+//#endregion
 
-alogout.addEventListener('click', () => {
+//#region 用户信息修改
+let userDialog = document.getElementById('userDialog');
+let txtImg = document.getElementById('txtImg');
+let txtInfo = document.getElementById('txtInfo');
+let txtNickname = document.getElementById('txtNickname');
+let txtQq = document.getElementById('txtQq');
+let txtWechat = document.getElementById('txtWechat');
+let sexm = document.getElementById('sexm');
+let sexf = document.getElementById('sexf');
+let sexn = document.getElementById('sexn');
+let btnSave = document.getElementById('btnSave');
+
+//#endregion
+
+//#region 安全退出
+let spExit = document.getElementById('spExit');
+
+spExit.addEventListener('click', () => {
   ajax.send('/user/auth/logout', {}, () => {
     location.href = 'login.html';
   });
 });
+
+//#endregion
+
+//#region 公用的轻提示对话框
+
+let liveToast = document.getElementById('liveToast');
+let liveToastMessing = document.querySelector('#liveToast .toast-body');
+
+const toast = new bootstrap.Toast(liveToast);
+
+function showToast(message) {
+  liveToastMessing.innerHTML = message;
+  toast.show();
+}
+
+//#endregion
 
 queryUserInfo();

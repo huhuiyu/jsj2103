@@ -6,17 +6,123 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用户首页</title>
+
+  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+
 </head>
 
 <body>
-  <div>建设中。。。</div>
-  <div>
-    欢迎：<span id="spName"></span>（<span id="spNick"></span>）
 
-    <a href="javascript:void(0)" id="alogout">安全退出</a>
+  <!-- 上方用户信息菜单区域 -->
+  <div class="p-2">
+
+    <div class="dropdown">
+      <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="spUserName"></span>
+      </button>
+      <ul class="dropdown-menu">
+
+        <li>
+          <span id="spUser" data-bs-toggle="modal" data-bs-target="#userDialog" class="dropdown-item"></span>
+        </li>
+
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+
+        <li>
+          <span id="spExit" class="dropdown-item">安全退出</span>
+        </li>
+
+      </ul>
+    </div>
+
 
   </div>
-  <div id="divInfo"></div>
+
+
+
+  <!-- 用户信息修改对话框 -->
+  <div id="userDialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">用户信息修改</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtImg" placeholder="用户头像url">
+          </div>
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtInfo" placeholder="用户描述">
+          </div>
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtNickname" placeholder="用户姓名">
+          </div>
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtQq" placeholder="QQ号">
+          </div>
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtWechat" placeholder="微信号">
+          </div>
+
+          <div class="m-3">
+
+            <div class="form-check form-check-inline">
+              <input type="radio" id="sexm" name="sex" class="form-check-input">
+              <label for="sexm">男神</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input type="radio" id="sexf" name="sex" class="form-check-input">
+              <label for="sexf">女神</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input type="radio" id="sexn" name="sex" class="form-check-input">
+              <label for="sexn">保密</label>
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button id="btnSave" type="button" class="btn btn-primary">
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- 公用消息轻提示 -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">服务器消息</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  <!-- 公用消息轻提示结束 -->
+
+  <script src="../bootstrap/popper.min.js"></script>
+  <script src="../bootstrap/bootstrap.min.js"></script>
 
   <script src="js/main.js" type="module"></script>
 </body>

@@ -172,7 +172,6 @@ function showToast(message) {
   liveToastMessing.innerHTML = message;
   toast.show();
 }
-
 //#endregion
 
 queryDept();
