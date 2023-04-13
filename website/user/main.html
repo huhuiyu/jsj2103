@@ -15,7 +15,11 @@
 <body>
 
   <!-- 上方用户信息菜单区域 -->
-  <div class="p-2">
+  <div class="p-2 top-div">
+
+    <div>
+      <img id="imgLogo" src="https://tse3-mm.cn.bing.net/th/id/OIP-C.3qb0lhm0el9QM8wjWPOEqgHaF8?pid=ImgDet&rs=1" alt="">
+    </div>
 
     <div class="dropdown">
       <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -25,6 +29,10 @@
 
         <li>
           <span id="spUser" data-bs-toggle="modal" data-bs-target="#userDialog" class="dropdown-item"></span>
+        </li>
+
+        <li>
+          <span id="spEmail" data-bs-toggle="modal" data-bs-target="#emailDialog" class="dropdown-item">绑定邮箱</span>
         </li>
 
         <li>
@@ -53,58 +61,94 @@
         </div>
         <div class="modal-body">
 
-          <div class="m-3">
-            <input type="text" class="form-control" id="txtImg" placeholder="用户头像url">
-          </div>
-
-          <div class="m-3">
-            <input type="text" class="form-control" id="txtInfo" placeholder="用户描述">
-          </div>
-
-          <div class="m-3">
-            <input type="text" class="form-control" id="txtNickname" placeholder="用户姓名">
-          </div>
-
-          <div class="m-3">
-            <input type="text" class="form-control" id="txtQq" placeholder="QQ号">
-          </div>
-
-          <div class="m-3">
-            <input type="text" class="form-control" id="txtWechat" placeholder="微信号">
-          </div>
-
-          <div class="m-3">
-
-            <div class="form-check form-check-inline">
-              <input type="radio" id="sexm" name="sex" class="form-check-input">
-              <label for="sexm">男神</label>
+          <div id="divModify">
+            <div class="m-3">
+              <input type="text" class="form-control" id="txtImg" placeholder="用户头像url">
             </div>
 
-            <div class="form-check form-check-inline">
-              <input type="radio" id="sexf" name="sex" class="form-check-input">
-              <label for="sexf">女神</label>
+            <div class="m-3">
+              <input type="text" class="form-control" id="txtInfo" placeholder="用户描述">
             </div>
 
-            <div class="form-check form-check-inline">
-              <input type="radio" id="sexn" name="sex" class="form-check-input">
-              <label for="sexn">保密</label>
+            <div class="m-3">
+              <input type="text" class="form-control" id="txtNickname" placeholder="用户姓名">
             </div>
 
+            <div class="m-3">
+              <input type="text" class="form-control" id="txtQq" placeholder="QQ号">
+            </div>
+
+            <div class="m-3">
+              <input type="text" class="form-control" id="txtWechat" placeholder="微信号">
+            </div>
+
+            <div class="m-3">
+
+              <div class="form-check form-check-inline">
+                <input type="radio" id="sexm" name="sex" class="form-check-input">
+                <label for="sexm">男神</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input type="radio" id="sexf" name="sex" class="form-check-input">
+                <label for="sexf">女神</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input type="radio" id="sexn" name="sex" class="form-check-input">
+                <label for="sexn">保密</label>
+              </div>
+
+
+            </div>
 
           </div>
 
+          <div id="divShowInfo"></div>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-          <button id="btnSave" type="button" class="btn btn-primary">
+          <button id="btnSave" type="button" class="disabled btn btn-primary">
             保存
           </button>
+          <button id="btnChange" class="btn btn-success">编辑</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- 绑定邮箱对话框 -->
+  <div id="emailDialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">用户邮箱绑定</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtEmail" placeholder="邮箱">
+          </div>
+
+          <div class="m-3">
+            <input type="text" class="form-control" id="txtEmailCode" placeholder="邮箱验证码">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button id="btnEmail" type="button" class="btn btn-primary">
+            保存
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- 公用消息轻提示 -->

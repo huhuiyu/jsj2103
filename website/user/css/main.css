@@ -1,0 +1,16 @@
+#imgLogo {
+  width: 2rem;
+  height: 2rem;
+  margin: 0px 0.5rem;
+  border-radius: 50%;
+}
+
+.top-div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#divModify {
+  display: none;
+}
