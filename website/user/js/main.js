@@ -136,6 +136,38 @@ spExit.addEventListener('click', () => {
 
 //#endregion
 
+//#region 邮箱修改
+let txtEmail = document.getElementById('txtEmail');
+let txtEmailCode = document.getElementById('txtEmailCode');
+let btnEmailCode = document.getElementById('btnEmailCode');
+let btnEmail = document.getElementById('btnEmail');
+
+// 获取邮箱验证码
+btnEmailCode.addEventListener('click', () => {
+  let info = {
+    email: txtEmail.value,
+  };
+  ajax.send('/tool/sendEmailCode', info, (data) => {
+    showToast(data.message);
+  });
+});
+
+// 修改邮箱
+btnEmail.addEventListener('click', () => {
+  let info = {
+    email: txtEmail.value,
+    code: txtEmailCode.value,
+  };
+  ajax.send('/user/auth/updateUserEmail', info, (data) => {
+    showToast(data.message);
+    if (data.success) {
+      queryUserInfo();
+    }
+  });
+});
+
+//#endregion
+
 //#region 公用的轻提示对话框
 
 let liveToast = document.getElementById('liveToast');
