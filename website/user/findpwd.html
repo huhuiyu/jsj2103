@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>找回密码</title>
+  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+
+  <link rel="stylesheet" href="./css/findpwd.css">
+</head>
+
+<body>
+
+  <div class="main-box">
+
+    <div class="card">
+      <div class="list-group list-group-flush">
+
+        <div class="list-group-item text-bg-secondary">找回密码</div>
+
+        <div class="list-group-item">
+
+          <div class="m-2">
+            <input id="txtName" type="text" class="form-control" placeholder="用户名">
+          </div>
+
+          <div class="m-2">
+            <div class="input-group">
+              <input id="txtCode" type="text" class="form-control" placeholder="验证码">
+              <span id="btnCode" class="input-group-text">发送验证码</span>
+            </div>
+          </div>
+
+          <div class="m-2">
+            <input id="txtPwd" class="form-control" type="password" placeholder="新密码">
+          </div>
+
+        </div>
+
+        <div class="list-group-item">
+          <span id="btnOk" class="btn btn-secondary">确定</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="../bootstrap/popper.min.js"></script>
+  <script src="../bootstrap/bootstrap.min.js"></script>
+
+  <script src="./js/findpwd.js" type="module"></script>
+
+</body>
+
+</html>
