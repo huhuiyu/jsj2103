@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户记事本</title>
+
+  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+
+</head>
+
+<body>
+  <div class="container-fluid">
+
+    <!-- 菜单 -->
+    <div class="m-2 text-end">
+      <span class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addDialog">添加信息</span>
+
+    </div>
+
+    <!-- 表格数据呈现 -->
+    <table class="table table-hover">
+
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>内容</th>
+          <th>最后修改时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbData"></tbody>
+
+    </table>
+
+
+  </div>
+
+  <!-- 添加的对话框 -->
+  <div id="addDialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">添加信息</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="m-2">
+            <input type="text" id="txtATitle" placeholder="标题" class="form-control">
+          </div>
+
+          <div class="m-2">
+            <input type="text" id="txtAInfo" placeholder="内容" class="form-control">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button id="btnAdd" class="btn btn-success">
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- 公用消息轻提示 -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">服务器消息</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  <!-- 公用消息轻提示结束 -->
+
+
+
+  <script src="../bootstrap/popper.min.js"></script>
+  <script src="../bootstrap/bootstrap.min.js"></script>
+
+  <script src="./js/notepad.js" type="module"></script>
+
+</body>
+
+
+</html>
