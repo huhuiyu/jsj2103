@@ -15,8 +15,25 @@
   <div class="container-fluid">
 
     <!-- 菜单 -->
-    <div class="m-2 text-end">
-      <span class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addDialog">添加信息</span>
+    <div class="m-2 d-flex justify-content-end">
+
+      <div class="row">
+
+        <div class="col-auto">
+          <input type="text" id="txtQTitle" class="form-control" placeholder="标题模糊查询">
+        </div>
+
+        <div class="col-auto">
+          <input type="text" id="txtQInfo" class="form-control" placeholder="内容模糊查询">
+        </div>
+
+        <div class="col-auto btn-group">
+          <span class="btn btn-info" id="btnQuery">查询</span>
+          <span class="btn btn-info" id="btnReset">重置</span>
+          <span class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addDialog">添加信息</span>
+        </div>
+
+      </div>
 
     </div>
 
@@ -36,6 +53,12 @@
 
     </table>
 
+    <!-- 分页的部分 -->
+    <nav id="navPage" class="pagination m-2">
+      <span class="page-item"><a class="page-link">上一页</a></span>
+      <span class="page-link"></span>
+      <span class="page-item"><a class="page-link">下一页</a></span>
+    </nav>
 
   </div>
 
@@ -70,7 +93,36 @@
     </div>
   </div>
 
+  <!-- 修改的对话框 -->
+  <div id="modifyDialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">修改信息</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
+        <div class="modal-body">
+
+          <div class="m-2">
+            <input type="text" id="txtMTitle" placeholder="标题" class="form-control">
+          </div>
+
+          <div class="m-2">
+            <input type="text" id="txtMInfo" placeholder="内容" class="form-control">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button id="btnModify" class="btn btn-success">
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- 公用消息轻提示 -->
