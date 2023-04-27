@@ -26,6 +26,11 @@ let txtMTitle = document.getElementById('txtMTitle');
 let txtMInfo = document.getElementById('txtMInfo');
 let btnModify = document.getElementById('btnModify');
 
+// 删除相关的页面元素
+let delDialog = document.getElementById('delDialog');
+let btnDel = document.getElementById('btnDel');
+let delDialogBody = document.querySelector('#delDialog .modal-body');
+
 // 分页相关页面元素
 let pages = document.querySelectorAll('#navPage > span');
 
@@ -99,6 +104,8 @@ function showData() {
     let btn1 = document.createElement('span');
     btn1.append('修改');
     btn1.classList.add('btn', 'btn-primary', 'btn-sm', 'm-1');
+    btn1.setAttribute('data-bs-toggle', 'modal');
+    btn1.setAttribute('data-bs-target', '#modifyDialog');
     td.append(btn1);
     btn1.addEventListener('click', () => {
       showModify(info);
@@ -108,6 +115,10 @@ function showData() {
     let btn2 = document.createElement('span');
     btn2.append('删除');
     btn2.classList.add('btn', 'btn-danger', 'btn-sm', 'm-1');
+
+    btn2.setAttribute('data-bs-toggle', 'modal');
+    btn2.setAttribute('data-bs-target', '#delDialog');
+
     td.append(btn2);
     btn2.addEventListener('click', () => {
       showDel(info);
@@ -174,15 +185,58 @@ let modifyInfo = {};
 function showModify(info) {
   console.log('修改的信息：', info);
   modifyInfo = info;
+  txtMTitle.value = info.title;
+  txtMInfo.value = info.info;
 }
+
+btnModify.addEventListener('click', () => {
+  modifyInfo.title = txtMTitle.value;
+  modifyInfo.info = txtMInfo.value;
+
+  ajax.send('/user/note/update', modifyInfo, (data) => {
+    showToast(data.message);
+  });
+});
+
+modifyDialog.addEventListener('hide.bs.modal', () => {
+  page.pageNumber = 1;
+  query();
+});
 
 //#endregion
 
 //#region 删除的部分
 
+let delInfo = {};
+
 function showDel(info) {
   console.log('删除的信息：', info);
+  delDialogBody.innerHTML = `
+  是否删除：${info.title}?
+  `;
+  delInfo = info;
 }
+
+delDialog.addEventListener('hide.bs.modal', () => {
+  page.pageNumber = 1;
+  query();
+});
+
+// bootstarp对话框对象
+let delDialogObj = new bootstrap.Modal(delDialog);
+
+btnDel.addEventListener('click', () => {
+  ajax.send(
+    '/user/note/delete',
+    {
+      unid: delInfo.unid,
+    },
+    (data) => {
+      showToast(data.message);
+      delDialogObj.hide();
+    }
+  );
+});
 
 //#endregion
 

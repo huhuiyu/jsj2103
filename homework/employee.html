@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>员工管理复习</title>
+
+  <!-- bootstarp的ui依赖 -->
+  <link rel="stylesheet" href="./libs/bootstrap.min.css">
+
+  <link rel="stylesheet" href="./css/employee.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+
+    <div class="p-1">
+      <span id="btnShowAdd" class="btn btn-primary">添加</span>
+    </div>
+
+
+  </div>
+
+
+
+  <!-- 公用消息轻提示 -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">服务器消息</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  <!-- 公用消息轻提示结束 -->
+
+  <!-- bootstarp的ui依赖 -->
+  <script src="./libs/popper.min.js"></script>
+  <script src="./libs/bootstrap.min.js"></script>
+
+  <script src="./js/employee.js" type="module"></script>
+
+</body>
+
+</html>
