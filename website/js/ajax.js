@@ -51,6 +51,39 @@ let ajax = {
         callback({ success: false, message: '请求异常' });
       });
   },
+  // 上传文件的方法
+  file: (file, fileinfo, callback) => {
+    const url = BASE_URL + '/user/file/upload';
+    // 文件上传必须使用FormData对象传递
+    let formdata = new FormData();
+    // 通过append添加数据
+    formdata.append('fileinfo', fileinfo);
+    formdata.append('file', file);
+    // 发起文件版本的ajax
+    let promise = axios({
+      url: url,
+      method: 'POST',
+      data: formdata,
+      headers: {
+        token: loadToken(),
+        // 文件上传的必须类型
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    // 请求的结果处理
+    promise
+      .then((resp) => {
+        console.log('应答结果', resp);
+        // 正常请求结果
+        saveToken(resp.data);
+        callback(resp.data);
+      })
+      .catch((err) => {
+        console.error('请求错误', err);
+        callback({ success: false, message: '请求异常' });
+      });
+  },
 };
 
 export default ajax;
