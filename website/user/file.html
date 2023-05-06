@@ -14,7 +14,100 @@
 
 <body>
 
+  <div class="container-fluid">
 
+    <!-- 查询的表单 -->
+    <div class="row flex-row justify-content-end">
+
+      <div class="col-auto p-2">
+        <input id="txtQContentType" placeholder="文件类型" type="text" class="form-control">
+      </div>
+
+      <div class="col-auto p-2">
+        <input id="txtQFileinfo" placeholder="文件描述" type="text" class="form-control">
+      </div>
+
+      <div class="col-auto p-2">
+        <input id="txtQFilename" placeholder="文件名称" type="text" class="form-control">
+      </div>
+
+      <div class="col-auto p-2">
+        <div class="btn-group">
+          <span id="btnQuery" class="btn btn-primary">查询</span>
+          <span class="btn btn-danger">重置</span>
+          <span id="btnShowUpload" class="btn btn-info">上传文件</span>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- 数据表格 -->
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>文件名</th>
+          <th>文件类型</th>
+          <th>文件大小</th>
+          <th>文件描述</th>
+          <th>上传时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbData"></tbody>
+
+
+    </table>
+
+  </div>
+
+  <!-- 添加的对话框 -->
+  <div id="addDialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">上传文件</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="m-2">
+            <span id="btnBrowser" class="btn btn-info">浏览文件...</span>
+            <span id="spFileInfo"></span>
+          </div>
+
+          <div class="m-2">
+            <input type="text" id="txtAFileinfo" placeholder="文件描述" class="form-control">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button id="btnAdd" class="btn btn-success">
+            上传
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 公用消息轻提示 -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">服务器消息</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  <!-- 公用消息轻提示结束 -->
 
 
   <script src="../bootstrap/popper.min.js"></script>
