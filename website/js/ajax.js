@@ -84,6 +84,18 @@ let ajax = {
         callback({ success: false, message: '请求异常' });
       });
   },
+  // 获取文件的下载地址
+  getFileUrl: (fid) => {
+    return `${BASE_URL}/user/file/download?fid=${fid}`;
+  },
+  // 判定地址是否为上传的文件url地址
+  isFileUrl: (url) => {
+    return url.startsWith(BASE_URL + '/user/file/download?fid=');
+  },
+  // 获取下载地址中的fid值
+  getUrlFid: (url) => {
+    return url.replace(BASE_URL + '/user/file/download?fid=', '');
+  },
 };
 
 export default ajax;

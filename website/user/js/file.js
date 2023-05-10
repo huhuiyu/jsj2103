@@ -1,5 +1,30 @@
-import tools from '../../js/tools.js';
 import ajax from '../../js/ajax.js';
+import tools from '../../js/tools.js';
+
+//#region 公用方法部分
+
+// 判断文件是否可以被预览
+function isPreview(fileinfo) {
+  return (
+    fileinfo.contentType.startsWith('image/') ||
+    fileinfo.contentType.startsWith('audio/') ||
+    fileinfo.contentType.startsWith('video/')
+  );
+}
+
+function isImage(fileinfo) {
+  return fileinfo.contentType.startsWith('image/');
+}
+
+function isAudio(fileinfo) {
+  return fileinfo.contentType.startsWith('audio/');
+}
+
+function isVideo(fileinfo) {
+  return fileinfo.contentType.startsWith('video/');
+}
+
+//#endregion
 
 //#region 查询的部分
 let page = {
@@ -73,6 +98,32 @@ function showData() {
     td.append(tools.formatDate(info.lastupdate));
     tr.append(td);
 
+    // 操作的部分
+    td = document.createElement('td');
+    tr.append(td);
+    // 预览按钮
+    if (isPreview(info)) {
+      let btn1 = document.createElement('span');
+      btn1.append('预览');
+      btn1.classList.add('btn', 'btn-primary', 'btn-sm', 'me-1');
+      td.append(btn1);
+
+      btn1.addEventListener('click', () => {
+        showPreview(info);
+      });
+    }
+    // 下载按钮
+    let btn2 = document.createElement('span');
+    btn2.append('下载');
+    btn2.classList.add('btn', 'btn-info', 'btn-sm', 'me-1');
+    td.append(btn2);
+
+    btn2.addEventListener('click', () => {
+      let url = ajax.getFileUrl(info.fid);
+      console.log(url, ajax.isFileUrl(url), ajax.getUrlFid(url));
+      window.open(url);
+    });
+
     tbData.append(tr);
   }
 }
@@ -123,7 +174,15 @@ btnBrowser.addEventListener('click', () => {
 });
 
 btnAdd.addEventListener('click', () => {
+  if (!file || file.size > 2 * 1000 * 1000) {
+    showToast('文件必须选择且不能超过2mb大小');
+    return;
+  }
+  btnAdd.innerHTML = '上传中...';
+  btnAdd.classList.add('disabled');
   ajax.file(file, txtAFileinfo.value, (data) => {
+    btnAdd.classList.remove('disabled');
+    btnAdd.innerHTML = '上传';
     showToast(data.message);
     if (data.success) {
       file = null;
@@ -131,6 +190,40 @@ btnAdd.addEventListener('click', () => {
     }
   });
 });
+
+//#endregion
+
+//#region 预览的部分
+
+let previewDialog = document.getElementById('previewDialog');
+let previewDialogObj = new bootstrap.Modal(previewDialog);
+let previewDialogBody = document.querySelector(
+  '#previewDialog .modal-body > div'
+);
+
+function showPreview(info) {
+  let ele;
+  // 判定预览的元素
+  if (isImage(info)) {
+    ele = document.createElement('img');
+    ele.setAttribute('src', ajax.getFileUrl(info.fid));
+  }
+  if (isAudio(info)) {
+    ele = document.createElement('audio');
+    ele.setAttribute('src', ajax.getFileUrl(info.fid));
+    ele.setAttribute('controls', '');
+  }
+  if (isVideo(info)) {
+    ele = document.createElement('video');
+    ele.setAttribute('src', ajax.getFileUrl(info.fid));
+    ele.setAttribute('controls', '');
+  }
+
+  // 创建预览元素并添加到对话框的body中
+  previewDialogBody.innerHTML = '';
+  previewDialogBody.append(ele);
+  previewDialogObj.toggle();
+}
 
 //#endregion
 
