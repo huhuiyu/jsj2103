@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用户首页</title>
-
+  <link rel="stylesheet" href="../libs/iconfont/iconfont.css">
   <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="./css/main.css">
 
@@ -14,42 +14,58 @@
 
 <body>
 
-  <!-- 上方用户信息菜单区域 -->
-  <div class="p-2 top-div">
+  <div class="container-fluid">
 
-    <div>
-      <img id="imgLogo" src="https://tse3-mm.cn.bing.net/th/id/OIP-C.3qb0lhm0el9QM8wjWPOEqgHaF8?pid=ImgDet&rs=1" alt="">
+    <!-- 上方用户信息菜单区域 -->
+    <div class="p-2 top-div">
+
+      <div>
+        <img id="imgLogo" src="https://tse3-mm.cn.bing.net/th/id/OIP-C.3qb0lhm0el9QM8wjWPOEqgHaF8?pid=ImgDet&rs=1" alt="">
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span id="spUserName"></span>
+        </button>
+        <ul class="dropdown-menu">
+
+          <li>
+            <span id="spUser" data-bs-toggle="modal" data-bs-target="#userDialog" class="dropdown-item"></span>
+          </li>
+
+          <li>
+            <span id="spEmail" data-bs-toggle="modal" data-bs-target="#emailDialog" class="dropdown-item">绑定邮箱</span>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <span id="spExit" class="dropdown-item">安全退出</span>
+          </li>
+
+        </ul>
+      </div>
+
+
     </div>
 
-    <div class="dropdown">
-      <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <span id="spUserName"></span>
-      </button>
-      <ul class="dropdown-menu">
+    <div class="menus" id="divMenu">
 
-        <li>
-          <span id="spUser" data-bs-toggle="modal" data-bs-target="#userDialog" class="dropdown-item"></span>
-        </li>
+      <!-- 菜单项 -->
+      <!--       
+      <div>
+        <i class="iconfont">&#xe60c;</i>
+        <div>
+          用户记事本
+        </div>
+      </div> 
+      -->
 
-        <li>
-          <span id="spEmail" data-bs-toggle="modal" data-bs-target="#emailDialog" class="dropdown-item">绑定邮箱</span>
-        </li>
-
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-
-        <li>
-          <span id="spExit" class="dropdown-item">安全退出</span>
-        </li>
-
-      </ul>
     </div>
-
 
   </div>
-
-
 
   <!-- 用户信息修改对话框 -->
   <div id="userDialog" class="modal fade" tabindex="-1">

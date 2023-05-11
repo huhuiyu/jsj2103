@@ -1,6 +1,8 @@
 import axios from '../libs/axios.min.js';
 import qs from '../libs/qs.js';
 
+const ACCESS_KEY = '5551bc9b-c872-4c87-8e51-66b431c604de';
+
 // 服务器基础地址
 const BASE_URL = 'https://service.huhuiyu.top/teach_project_service';
 // token相关
@@ -99,3 +101,5 @@ let ajax = {
 };
 
 export default ajax;
+
+export { ajax as ajax, ACCESS_KEY as accessKey };

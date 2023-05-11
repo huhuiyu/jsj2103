@@ -168,6 +168,41 @@ btnEmail.addEventListener('click', () => {
 
 //#endregion
 
+//#region 菜单列表
+let divMenu = document.getElementById('divMenu');
+let menus = [
+  { title: '用户记事本', icon: '&#xe655;', href: 'notepad.html' },
+  { title: '用户文件管理', icon: '&#xe62f;', href: 'file.html' },
+  { title: '黑暗骑士的网站', icon: '&#xe667;', href: 'https://huhuiyu.top' },
+];
+
+function showMenus() {
+  divMenu.innerHTML = '';
+  // 数组的forEach循环
+  menus.forEach((item) => {
+    let div1 = document.createElement('div');
+    let i1 = document.createElement('i');
+    div1.append(i1);
+    i1.innerHTML = item.icon;
+    i1.classList.add('iconfont');
+
+    let div2 = document.createElement('div');
+    div2.append(item.title);
+    div1.append(div2);
+
+    div1.addEventListener('click', () => {
+      // location.href = item.href;
+      window.open(item.href);
+    });
+
+    divMenu.append(div1);
+  });
+}
+
+showMenus();
+
+//#endregion
+
 //#region 公用的轻提示对话框
 
 let liveToast = document.getElementById('liveToast');
