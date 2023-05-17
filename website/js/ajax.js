@@ -1,6 +1,7 @@
 import axios from '../libs/axios.min.js';
 import qs from '../libs/qs.js';
 
+// test用户的key
 const ACCESS_KEY = '5551bc9b-c872-4c87-8e51-66b431c604de';
 
 // 服务器基础地址
