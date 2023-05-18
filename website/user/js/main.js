@@ -1,4 +1,5 @@
 import ajax from '../../js/ajax.js';
+import tools from '../../js/tools.js';
 
 //#region 登录用户信息查询
 
@@ -200,6 +201,42 @@ function showMenus() {
 }
 
 showMenus();
+
+//#endregion
+
+//#region 点击头像上传更新
+
+imgLogo.addEventListener('click', () => {
+  // 浏览文件
+  tools.openFile((file) => {
+    if (!file) {
+      return;
+    }
+    // 上传头像
+    ajax.file(file, '用户头像', (data) => {
+      if (!data.success) {
+        return;
+      }
+
+      // 如果原始头像也是上传的文件，要删除，避免上传的头像越来越多
+      if (ajax.isFileUrl(tbUserInfo.img)) {
+        let fid = ajax.getUrlFid(tbUserInfo.img);
+        ajax.send('/user/file/delete', { fid: fid }, () => {});
+      }
+
+      // 获取上传文件的url
+      let url = ajax.getFileUrl(data.data.fid);
+      // 修改用户的头像地址信息
+      tbUserInfo.img = url;
+      let info = JSON.parse(JSON.stringify(tbUserInfo));
+      info.nickname = tbUser.nickname;
+
+      ajax.send('/user/auth/updateUserInfo', info, () => {
+        queryUserInfo();
+      });
+    });
+  });
+});
 
 //#endregion
 

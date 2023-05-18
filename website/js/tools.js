@@ -58,6 +58,46 @@ let tools = {
 
     efile.click();
   },
+  // 门户信息的格式转换
+  convertProtableInfo: (list) => {
+    let json = {};
+    for (let i = 0; i < list.length; i++) {
+      const info = list[i];
+      // 判定json中是否有对应的messageGroup
+      if (!json[info.messageGroup]) {
+        json[info.messageGroup] = {};
+      }
+      json[info.messageGroup][info.messageKey] = info.message;
+    }
+
+    return json;
+  },
+  // 将文字信息复制到剪贴板
+  copyText: async (text) => {
+    // 剪贴板对象的实现方式（更新和更好的方式，但是需要浏览器授权）
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (ex) {
+      console.error(ex);
+    }
+    // 原始的，不支持剪贴板对象的实现方式
+    // 创建输入框并设置内容
+    let input = document.createElement('input');
+    input.value = text;
+    // 放到页面上
+    document.body.appendChild(input);
+    // 选中文本框中的内容
+    input.focus();
+    input.select();
+    input.setSelectionRange(0, text.length);
+    // 调用浏览器的复制指令
+    document.execCommand('Copy');
+    // 移除input
+    document.body.removeChild(input);
+  },
 };
 
 export default tools;
+
+export { tools as tools };

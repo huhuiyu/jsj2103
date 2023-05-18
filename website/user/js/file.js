@@ -124,6 +124,18 @@ function showData() {
       window.open(url);
     });
 
+    // 复制链接按钮
+    let btn3 = document.createElement('span');
+    btn3.append('复制文件链接');
+    btn3.classList.add('btn', 'btn-danger', 'btn-sm', 'me-1');
+    td.append(btn3);
+
+    btn3.addEventListener('click', () => {
+      let url = ajax.getFileUrl(info.fid);
+      tools.copyText(url);
+      showToast('地址复制完毕');
+    });
+
     tbData.append(tr);
   }
 }

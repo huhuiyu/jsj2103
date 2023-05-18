@@ -1,4 +1,5 @@
 import { ajax, accessKey } from '../js/ajax.js';
+import { tools } from '../js/tools.js';
 console.log(accessKey);
 
 //#region 计数器相关
@@ -98,7 +99,7 @@ function queryProtable() {
     '/portable/message/queryAll',
     {
       accessKey: accessKey,
-      messageGroup: 'protable',
+      messageGroup: 'protable,test',
     },
     (data) => {
       if (!data.success) {
@@ -107,8 +108,38 @@ function queryProtable() {
       }
       console.log('门户信息：', data.list);
 
-      document.querySelector('title').innerHTML 
-        = data.list[0].message;
+      // list
+      /*  [
+        {
+          "pmid": 139,
+          "accessKey": "5551bc9b-c872-4c87-8e51-66b431c604de",
+          "messageGroup": "protable",
+          "messageKey": "title",
+          "message": "黑暗骑士的网站修改",
+          "lastupdate": 1684294597000
+        },
+        {
+          "pmid": 147,
+          "accessKey": "5551bc9b-c872-4c87-8e51-66b431c604de",
+          "messageGroup": "protable",
+          "messageKey": "welcome",
+          "message": "欢迎访问黑暗骑士的网站",
+          "lastupdate": 1684293953000
+        }
+      ] */
+
+      /* 
+        { 
+          protable :{
+            welcome:'欢迎访问黑暗骑士的网站'
+            title:'黑暗骑士的网站修改'
+          } 
+        }
+      */
+      let protableInfo = tools.convertProtableInfo(data.list);
+      console.log('门户信息的转换结果：', protableInfo);
+      document.querySelector('title').innerHTML = protableInfo.protable.title;
+      document.querySelector('h1').innerHTML = protableInfo.protable.welcome;
     }
   );
 }
